@@ -358,7 +358,7 @@ func (ps *PokerSet) CountSumPoints() {
 			sum += pokers[i].Flag
 		}
 	}
-	ps.ThreeSum=sum
+	ps.ThreeSum=sum%10
 	return
 }
 
