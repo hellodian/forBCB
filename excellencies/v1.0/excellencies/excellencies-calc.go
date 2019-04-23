@@ -115,18 +115,6 @@ func (pp *PokerPool) conv(c string,poker *[]*Poker) {
 		index=15
 	case "f":
 		index=16
-	case  "A":
-		index=17
-	case "B":
-		index=18
-	case "C":
-		index=19
-	case "D":
-		index=20
-	case "E":
-		index=21
-	case "F":
-		index=22
 	}
 	addpoker:= (*poker)[index]
 	*poker=append((*poker)[0:index],(*poker)[index+1:]...)
