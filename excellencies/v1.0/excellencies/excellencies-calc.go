@@ -57,11 +57,11 @@ type PokerPool struct {
 	Pool []*Poker
 }
 
-func NewPokerPool(hash []byte,poker []*Poker) *PokerPool {
+func NewPokerPool(hash []byte,poker []*Poker,e *Excellencies) *PokerPool {
 	pool := &PokerPool{
 		Pool: make([]*Poker, 0),
 	}
-	pool.convert(hash,poker)
+	pool.convert(hash,poker,e)
 	return pool
 }
 
@@ -72,54 +72,19 @@ func (pp *PokerPool) Discard() *Poker {
 	return pokers[i-1]
 }
 
-func (pp *PokerPool) convert(hash []byte,poker []*Poker) {
+func (pp *PokerPool) convert(hash []byte,poker []*Poker,e *Excellencies) {
 	bytes := []byte(hash)
-	le := len(bytes)
-	for i := le; le-i < 15; i-- {
-		c := string(bytes[i-1])
-		pp.conv(c,&poker)
+	for i := 0; i < 15; i++ {
+		w:=bn.NBytes(sha3.Sum256(bytes[2:], e.sdk.Block().BlockHash(), e.sdk.Block().RandomNumber()))
+		bytes=bytes[2:]
+		index:=w.ModI(int64(POKERSIZE-i)).V.Int64()
+		pp.Pool = append(pp.Pool, poker[index])
+		poker=append(poker[0:index],poker[index+1:]...)
+
 	}
 }
 
-func (pp *PokerPool) conv(c string,poker *[]*Poker) {
-	index:=0
-	switch c {
-	case "0":
-	case "1":
-		index=1
-	case "2":
-		index=2
-	case "3":
-		index=3
-	case "4":
-		index=4
-	case "5":
-		index=5
-	case "6":
-		index=6
-	case "7":
-		index=7
-	case "8":
-		index=8
-	case "9":
-		index=9
-	case "a":
-		index=11
-	case "b":
-		index=12
-	case "c":
-		index=13
-	case "d":
-		index=14
-	case "e":
-		index=15
-	case "f":
-		index=16
-	}
-	addpoker:= (*poker)[index]
-	*poker=append((*poker)[0:index],(*poker)[index+1:]...)
-	pp.Pool = append(pp.Pool, addpoker)
-}
+
 
 type Game struct {
 	Gamer map[string]*PokerSet
@@ -158,6 +123,7 @@ func (g *Game) start() {
 			index = 0
 		}
 	}
+
 }
 
 func (g *Game) GetGamerCards(flag string) *PokerSet {
@@ -173,11 +139,9 @@ func (e *Excellencies) StartGame(reveal []byte) (*Game,[]*Poker) {
 	poker:=e.ShufflePoker(w)
 	hash := e.sdk.Block().BlockHash()
 	shash := fmt.Sprint(hash)
-	pool := NewPokerPool([]byte(shash),poker)
+	pool := NewPokerPool([]byte(shash),poker,e)
 	result:=pool.Pool
 	game := NewGame(pool)
-	//game := NewGame(pool,poker)
-	//start() 吧牌插入进去
 	game.start()
 	return game,result
 }
