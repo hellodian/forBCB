@@ -14,7 +14,7 @@ var (
 	contractName= "excellencies" //contract name
 	contractMethods= []string{"SetSecretSigner(types.PubKey)", "SetOwner(types.Address)", "SetSettings(string)", "SetRecFeeInfo(string)", "WithdrawFunds(string,types.Address,bn.Number)", "PlaceBet(string,int64,[]byte,[]byte,types.Address)", "SettleBet([]byte,int64)", "CarveUpPool([]byte)", "WithdrawWin([]byte)", "SlipperHighestTransfer(string,types.Address)"}
 	contractInterfaces= []string{}
-	orgID= "orgNUjCm1i8RcoW2kVTbDw4vKW6jzfMxewJHjkhuiduhjuikjuyhnnjkuhujk111"
+	orgID= "orgBtjfCSPCAJ84uQWcpNr74NLMWYm5SXzer"
 )
 //TestObject This is a struct for test
 type TestObject struct {

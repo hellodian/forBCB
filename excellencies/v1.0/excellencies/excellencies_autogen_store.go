@@ -184,9 +184,9 @@ func (e *Excellencies) _setPoker(v []*Poker) {
 }
 
 //_poker This is a method of Excellencies
-func (e *Excellencies) _poker() *[]*Poker {
+func (e *Excellencies) _poker() []*Poker {
 
-	return e.sdk.Helper().StateHelper().GetEx("/poker", new([]*Poker)).(*[]*Poker)
+	return *e.sdk.Helper().StateHelper().GetEx("/poker", new([]*Poker)).(*[]*Poker)
 }
 
 //_chkPoker This is a method of Excellencies

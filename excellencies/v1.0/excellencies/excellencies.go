@@ -13,8 +13,8 @@ import (
 //excellencies This is struct of contract
 //@:contract:excellencies
 //@:version:1.0
-//@:organization:orgNUjCm1i8RcoW2kVTbDw4vKW6jzfMxewJHjkhuiduhjuikjuyhnnjkuhujk111
-//@:author:ef94556a937618c72ffaf173b1533c533d77aa3ea2a63f053bb904feefe5a92f
+//@:organization:orgBtjfCSPCAJ84uQWcpNr74NLMWYm5SXzer
+//@:author:01bd6c29d63f5f32aa33955f26a28459988edea4de517f77372e77db33958e6e
 type Excellencies struct {
 	sdk sdk.ISmartContract
 
@@ -378,10 +378,10 @@ func (e *Excellencies) SettleBet(reveal []byte, settleCount int64) {
 
 //CarveUpPool - carve up pool
 //@:public:method:gas[500]
-func (e *Excellencies) CarveUpPool (commit []byte)  {
+func (e *Excellencies) CarveUpPool (reveal []byte)  {
 	sdk.RequireOwner(e.sdk)
-	hexCommit := hex.EncodeToString(sha3.Sum256(commit))
-	sdk.Require(e._chkRoundInfo(hexCommit), types.ErrInvalidParameter, "Commit should be not exist")
+	hexCommit := hex.EncodeToString(sha3.Sum256(reveal))
+	sdk.Require(e._chkRoundInfo(hexCommit), types.ErrInvalidParameter, "Commit should be exist")
 
 	roundInfo := e._roundInfo(hexCommit)
 	setting:=roundInfo.Settings

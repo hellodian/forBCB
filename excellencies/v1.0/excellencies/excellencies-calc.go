@@ -147,7 +147,7 @@ func (e *Excellencies) StartGame(reveal []byte) (*Game,[]*Poker) {
 }
 
 func (e *Excellencies) ShufflePoker(w bn.Number) []*Poker{
-	poker:=*(e._poker())
+	poker:=e._poker()
 	newPoker:=make([]*Poker,0)
 
 	for i:=0;i<POKERSIZE;i++{

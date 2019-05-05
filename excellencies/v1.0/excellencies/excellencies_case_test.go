@@ -181,7 +181,7 @@ func (mysuit *MySuite) TestSicBo_SetSettings(c *check.C) {
 	}
 	settings.LimitMaps = limitMaps
 	resBytes1, _ := jsoniter.Marshal(settings)
-
+	fmt.Println(string(resBytes1))
 	for _, value := range settings.TokenNames {
 		limit := Limit{
 			MaxProfit: 2E12,
